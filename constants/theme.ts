@@ -3,51 +3,41 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-import { Platform } from 'react-native';
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+import { Platform } from "react-native";
 
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+  darkGrey: "#2D2D2D",
+  lightGray: "#989898",
+  orange: "#FF9427",
+
+  textPrimary: "white",
+  textSecondary: "#666666",
+  Background: "#000000",
+} as const;
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+    /** Space Mono Regular - fuente monoespaciada para calculadora */
+    regular: "SpaceMono_400Regular",
+    /** Space Mono Bold - para números y operadores destacados */
+    bold: "SpaceMono_700Bold",
+  },
+  android: {
+    /** Space Mono Regular - fuente monoespaciada para calculadora */
+    regular: "SpaceMono_400Regular",
+    /** Space Mono Bold - para números y operadores destacados */
+    bold: "SpaceMono_700Bold",
   },
   default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+    /** Space Mono Regular - fuente monoespaciada para calculadora */
+    regular: "SpaceMono_400Regular",
+    /** Space Mono Bold - para números y operadores destacados */
+    bold: "SpaceMono_700Bold",
   },
   web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    /** Space Mono con fallback a fuentes monoespaciadas del sistema */
+    regular: "'Space Mono', 'Courier New', Courier, monospace",
+    /** Space Mono Bold con fallback */
+    bold: "'Space Mono', 'Courier New', Courier, monospace",
   },
 });
