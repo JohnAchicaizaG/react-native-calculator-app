@@ -1,24 +1,60 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { StatusBar } from "expo-status-bar";
+import { Slot, SplashScreen } from "expo-router";
+import { View, Text, StyleSheet } from "react-native";
+import { useEffect } from "react";
+import { Colors, Fonts } from "@/constants/theme";
+import {
+  useFonts,
+  SpaceMono_400Regular,
+  SpaceMono_700Bold,
+} from "@expo-google-fonts/space-mono";
+import { globalStyles } from "@/styles/gloabalStyles";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+SplashScreen.preventAutoHideAsync();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+const RootLayout = () => {
+  const [fontsLoaded, fontError] = useFonts({
+    SpaceMono_400Regular,
+    SpaceMono_700Bold,
+  });
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <View style={globalStyles.background}>
+      <Text style={styles.headerText}>Header</Text>
+      <Slot />
+      <StatusBar style="light" />
+      <Text style={styles.footerText}>Footer</Text>
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.Background,
+  },
+  headerText: {
+    fontFamily: Fonts.bold,
+    fontSize: 16,
+    padding: 10,
+    color: Colors.textPrimary,
+  },
+  footerText: {
+    color: Colors.textPrimary,
+    fontFamily: Fonts.regular,
+    fontSize: 14,
+    padding: 10,
+  },
+});
+
+export default RootLayout;
